@@ -1,0 +1,312 @@
+/*en check style*/
+@media only screen and (min-width : 768px) and (max-width : 1024px)  { 
+  .container-app{
+    background-image: url('../img/bgBody1024.jpg');
+  }
+  .btn-msg{
+    font-size: 18pt;
+    line-height: 18pt;
+    height: 40px;
+    width: 380px;
+  }
+  .header p {
+   font-size: 36pt;
+ }
+ .form-login input{
+   height: 65px;
+ }
+ .form-group svg{
+   width: 44px;
+   height: 44px;
+ }
+ .form-login label, .form-login input{
+   height: 65px;
+   font-size: 18pt;   
+   padding-left: 50pt;
+ }
+  .form-login label{
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+ input[type="checkbox"]+ label{
+   font-size: 18pt;
+   padding-left: 65pt;
+ }
+ input[type="checkbox"] + label:before{
+  left: 0;
+  width: 70px;
+  height: 40px;
+}
+input[type="checkbox"]:checked + label:after {
+  -webkit-transform: translate3d(11px,0,0);
+  transform: translate3d(11px,0,0);
+}
+input[type="checkbox"] + label:after{
+  left: 25px;
+  width: 35px;
+  height: 35px;
+}
+/*button close open*/
+.line{
+  height: 4px;
+  width: 45px;
+  left: 10px;
+}
+.line-t{ top: 16px;}.line-m{ top: 30px; }.line-b{ top: 44px;}
+.menu-on .line{
+  top: 30px;
+}
+.panelUser{
+  height: 65px;
+}
+/*height promotions*/
+.scrollPromo {
+  margin-top: 65px;
+}
+/*swipe 0*/
+.emailUser{
+  font-size: 20pt;
+  padding-left: 15pt;
+}
+.logoutUser, .logoutUser *{
+  width: 44px;
+}
+.imgUser img{
+  width: 80px;
+  height: 44px;
+}
+.categoryName{
+  font-size: 32pt;
+  line-height: 40pt;
+}
+.categoryQty{    
+  font-size: 24pt;
+}
+.slide-categories{
+  padding-top: 65px;
+}
+/*swipe 1*/
+.pagination .categoryNameButton{
+  font-size: 28pt;
+  height: 65px;
+  line-height: 65px;
+}
+.menuButton{
+  width: 65px;
+  height: 65px;
+}
+.promotions li{
+  background: url('../img/default_768.jpg') no-repeat;
+  background-size: cover;
+}
+.promotions .imgPromo{
+  height: 400px;
+}
+.promotions .titlePromo,
+.card .titleDetail{
+  font-size: 24pt;
+}
+.card .descriptionDetail, .promotions .descriptionPromo{
+  font-size: 17pt;
+  line-height: 20pt;
+}
+.promotions .titlePromo{
+  height: 40%;
+}
+.promotions .descriptionPromo{
+  height: 50%;
+  margin-bottom: 1%;
+}
+.promotions .titlePromo,
+.promotions .descriptionPromo{
+  padding: 0 15pt;
+}  
+.discountPromo,
+.discountDetail{
+  width: 104px;        
+  right: 0pt;
+  font-size: 24pt;
+  line-height: 35pt;
+} 
+.discountPercent,
+.discountPercentDetail{
+  width: 104px;
+  height: 44px;
+  padding-left: 2pt;
+}
+.promotions .descriptionPromo{
+  max-height: 55%;
+}
+
+.detail{
+  height: 560px;
+  padding: 0 65px;
+}
+.detail .imgDetail{
+  height: 320px;
+}
+.areaDetail, .areaRestriction{
+  height: 560px;
+}
+.detail .logoBrand{
+  width: 80px;
+  height: 80px;
+}
+.card .descriptionDetail{
+  max-height: 72px !important;
+}
+.card .descriptionDetail, .card .titleDetail{
+  padding: 0 15pt;
+}
+.btnStores svg, .btnRestriction svg{
+  height: 45px;
+  width: 45px;
+  left: 10px;
+}
+/*card restriction*/
+.titleRestriction{
+  font-size: 22pt;
+  padding: 15pt 0pt 0pt;
+}
+.restrictionDetail{
+  font-size: 18pt;
+}
+.buttons {
+  position: absolute;
+  bottom: 10pt;
+}
+.btn,.modal-footer button{
+  height: 65px;
+  font-size: 24pt;
+}
+.buttons button{
+  padding-left: 24pt;
+  padding-right: 6px;
+}
+.likely .likely__icon{
+
+  border-radius: 8px;
+}
+
+/*socials*/
+.likely-big .likely__widget{
+  height: 60px;
+}
+.likely-big .likely__icon {
+  width: 55px;
+  height: 55px;
+}
+.likely-big svg {
+  left: 6px;
+  top: 5px;
+  width: 44px;
+  height: 44px;
+}
+/*modals*/
+.modal-header h4{
+  font-size: 22pt;
+}
+.modal-body p{
+  font-size: 18pt;
+}
+.modal-footer {
+  padding: 7px 10pt;
+}
+.modal-footer .btn+.btn {
+  margin-left: 10pt;
+}
+.modalStoresLocations>div{
+ padding: 65px;
+}
+/*directions*/
+.titleLocation{
+  font-size: 20pt;
+}
+.directionLocation{
+ font-size: 14pt;
+}
+.StoreLocationList{
+  height: 330px;
+}
+.swiper-slide:first-child {
+  background: url('../img/bg_category_768.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.loader-logo {
+  width: 100px;
+  height: 100px;
+}
+.loader .loader-logo path {
+  stroke-width: 22;
+}
+/*Welcome message*/
+.welcomeContent{ 
+  width: 60%;
+  height: 350px;
+}
+@-webkit-keyframes line_one{
+  0%{
+    -webkit-transform: rotateZ(45deg) translate3D(0,15px,0);    opacity: 0.8;    height: 1px;
+  }
+  100%{
+    -webkit-transform: rotateZ(45deg) translate3D(0,35px,0);    opacity: 0;    height: 17px;
+  }
+}
+@keyframes line_one{
+  0%{
+    transform: rotateZ(45deg) translate3D(0,15px,0);    opacity: 0.8;    height: 1px;
+  }
+  100%{
+    transform: rotateZ(45deg) translate3D(0,35px,0);    opacity: 0;    height: 17px;
+  }
+}
+@-webkit-keyframes line_two{
+  0%{
+    -webkit-transform: rotateZ(45deg) translate3D(0,-15px,0);    opacity: 0.8;    height: 1px;
+  }
+  100%{
+    -webkit-transform: rotateZ(45deg) translate3D(0,-35px,0);    opacity: 0;    height: 17px;
+  }
+}
+@keyframes line_two{
+  0%{
+    transform: rotateZ(45deg) translate3D(0,-15px,0);    opacity: 0.8;    height: 1px;
+  }
+  100%{
+    transform: rotateZ(45deg) translate3D(0,-35px,0);    opacity: 0;    height: 17px;
+  }
+}
+@-webkit-keyframes line_three{
+  0%{
+    -webkit-transform: rotateZ(-45deg) translate3D(0,15px,0);    opacity: 0.8;    height: 1px;
+  }
+  100%{
+    -webkit-transform: rotateZ(-45deg) translate3D(0,35px,0);    opacity: 0;    height: 17px;
+  }
+}
+@keyframes line_three{
+  0%{
+    transform: rotateZ(-45deg) translate3D(0,15px,0);    opacity: 0.8;    height: 1px;
+  }
+  100%{
+    transform: rotateZ(-45deg) translate3D(0,35px,0);    opacity: 0;    height: 17px;
+  }
+}
+@-webkit-keyframes line_four{
+  0%{
+    -webkit-transform: rotateZ(-45deg) translate3D(0,-15px,0);    opacity: 0.8;    height: 1px;
+  }
+  100%{
+    -webkit-transform: rotateZ(-45deg) translate3D(0,-35px,0);    opacity: 0;    height: 17px;
+  }
+}
+@keyframes line_four{
+  0%{
+    transform: rotateZ(-45deg) translate3D(0,-15px,0);    opacity: 0.8;     height: 1px;
+  }
+  100%{
+    transform: rotateZ(-45deg) translate3D(0,-35px,0);    opacity: 0;    height: 17px;
+  }
+}
+}

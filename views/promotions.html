@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="theme-color" content="#42C1C7">
+    <title>@DescuentosPeruRetail</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/swipe.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/likely.css" rel="stylesheet"> 
+    <link href="../css/style-promo.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <link href="../css/custom-animation.css" rel="stylesheet">
+    <link href="../css/loader.css" rel="stylesheet"> 
+    <link href="../css/colors.css" rel="stylesheet">   
+    <link href="../css/style-tablet-ipad.css" rel="stylesheet"> 
+    <link href="../css/style-smartphone-iphone.css" rel="stylesheet">       
+    <script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="cordova.js"></script>-->
+    <script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/plugins/swiper.js"></script>
+    <script type="text/javascript" src="../js/plugins/underscore.min.js"></script>
+    <script type="text/javascript" src="../js/plugins/likely.js"></script>
+    <script type="text/javascript" src="../js/plugins/jquery.easing.min.js"></script> 
+    <script type="text/javascript" src="../js/plugins/jquery.keyframes.js"></script>    
+    <script type="text/javascript" src="../js/scripts/scripts.js"></script>
+    <script type="text/javascript" src="../js/scripts/scripts-promo.js"></script>
+    <script type="text/javascript" src="../js/scripts/menu.js"></script>
+    <script type="text/javascript" src="../js/scripts/database.js"></script>
+    <script type="text/javascript" src="../js/scripts/category.js"></script>
+    <script type="text/javascript" src="../js/scripts/captions.js"></script>
+
+    <!-- design script -->
+    <script type="text/javascript" src="../js/scripts/design-promo.js"></script>
+    <script type="text/javascript" src="../js/plugins/sparkle.js"></script>
+
+    <script type="text/javascript"> 
+  $(document).ready(function(){
+        document.addEventListener("deviceready", onDeviceReady, false);  
+    function onDeviceReady() {
+        document.addEventListener("backbutton", onBackKeyDown, false); 
+    }
+    function onBackKeyDown() { 
+    }
+  });
+    </script> 
+
+
+  </head>
+  <body>
+
+    <!-- Swiper -->
+    <div class="swiper-container">
+
+      <!-- Swiper wrapper-->
+      <div class="swiper-wrapper">
+
+        <!-- Lista de Categorias -->
+        <div class="swiper-slide">
+          <div class="slide-categories">
+            <div class="panelUser">
+              <div class="imgUser">
+              </div>
+              <div class="emailUser">
+              </div>
+              <div class="logoutUser"></div>
+            </div>
+            <ul class="categories">
+            </ul>
+          </div>
+        </div>
+        <!-- fin Lista de Categorias -->
+        <div class="swiper-slide scrollPromo">
+
+           <ul class="promotions">
+
+          </ul>
+
+        </div>
+
+        <div class="swiper-slide detailPromo">
+
+          <div class="detail">        
+            <div class="cardContainer card">
+              <div class="areaDetail front">
+                <!-- brand img -->
+                <img src="" class="logoBrand">                
+                <!-- discount promo -->
+                <div class="discountDetail">
+                  <div class="discountPercentDetail">20% </div>
+                </div>
+                <!-- img big discount -->
+                <img src="" class="imgDetail">
+                <!-- title detail -->
+                <div class="titleDetail">Ropa de Verano</div>
+                <!-- description discount -->
+                <div class="descriptionDetail">
+                  
+                </div>
+                <!-- buttons -->
+                <div class="buttons">
+                  <button class="btn btn-default btnStores left">Ubícanos</button> 
+                  <button class="btn btn-default btnRestriction right">Restricciones</button>   
+                </div>              
+              </div> 
+              <div class="areaRestriction back">
+                <div class="titleRestriction">Restricciones</div>
+                <div class="restrictionDetail">
+                  Lorem impsum dolor sit amet, consecteur adipscing elit, sed do eiusmod tempor incidident ut labore et dolores
+                </div>
+              </div> 
+              <!-- end restriction    -->
+            </div>
+            <!-- end ActionButton -->
+          </div>
+
+          <div class="likely likely-big">
+                    <div class="twitter" data-url="https://itunes.apple.com/us/app/shazam-discover-music-artists/id284993459?mt=8&v0=WWW-NAUS-ITSTOP100-FREEAPPS&l=en&ign-mpt=uo%3D4" ></div>
+                    <div class="facebook" data-url="https://itunes.apple.com/us/app/shazam-discover-music-artists/id284993459?mt=8&v0=WWW-NAUS-ITSTOP100-FREEAPPS&l=en&ign-mpt=uo%3D4"></div>
+                </div>
+        </div>
+        <!-- end Swiper -->
+      </div>
+      <!-- end swiper wrapper -->
+
+      <!-- Button category -->
+      <div class="menuButton">
+        <span class="line line-t"></span>
+        <span class="line line-m"></span>
+        <span class="line line-b"></span>
+      </div>
+
+      <!-- Add Pagination -->
+      <div class="pagination">
+        <div class="categoryNameButton">
+          Promotions
+        </div>
+      </div>
+
+      <!-- favorite -->
+      <div class="favorite-area">  
+        <div class="checkbox_wrapper">    
+          <input type="checkbox" class="chkfavorite"/>
+          <div class="heartIcon">
+            <img src="../img/iconFavorite.svg">
+          </div> 
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div> 
+    
+    </div>
+    <!-- end swiper-container -->
+
+    
+
+    <!-- modal  List Directions-->
+   
+    <div class="modal fade modalStoresLocations" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Direcciones</h4>
+          </div>
+          <div class="modal-body">
+            <ul class='StoreLocationList'>
+              <script type=text/template id='locationsTemplate'>
+              <li>
+                <p class="titleLocation"><%= storeName %></p>
+                <p class="directionLocation"><%= storeAddress %></p>
+                <p class="directionLocation"><%= storePhone %></p>
+              </li>
+             </script>
+            </ul>
+          </div>
+<!--           <div class="modal-footer">
+            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Close</button>           
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- modal list ConfirmLogout -->
+    <div class="modal fade modalConfirmLogout" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Cerrar Sesión</h4>
+          </div>
+          <div class="modal-body">
+            <p class="msgLogout">¿Desea salir de la aplicación?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-default btnLogout" data-dismiss="modal">Salir</button>           
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- loader -->
+    <div class='loader'>
+      <div class="loader-logo">
+        <svg version="1.1" class="loader-logo-spinner" 
+          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+          <path id="XMLID_12_" 
+            style="fill-rule:evenodd;clip-rule:evenodd;fill:none;stroke-miterlimit:10;" d="M129.2,143.6c0,0,9.8-9.8,21.5-21.5c-8.1-6.8-27.2-8.8-46.3,13.6C91.3,151,89.9,166.6,99,224.4c2.7,17.5,13.2,64.6-17.7,86
+            c-29.9,20.8-64.4-1.8-71-49.2c-6.4-45.4-2.2-96.8,23.9-134.5c17-24.6,49.4-39.6,64.2-41c12.4-1.1,50.5-3.2,72.6,16.2
+            c10.8-10.8,19.4-19.4,19.4-19.4c13.6-13.6,29.8-16.3,51.4-7.7C277,89,334.8,108,346.1,119.3l143.4,143.4c17.7,17.7,17.7,46.4,0,64.2
+            L372.7,443.5c-17.7,17.7-46.4,17.7-64.2,0L165.2,300.2c-11-11-32.2-70.4-44.4-103.1C113.6,177.8,113.9,159,129.2,143.6z"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- welcome message -->
+    <div class="modal fade modalWelcomeMessage" role="dialog">
+      <div class="welcomeContent">
+        <div class="modal-header">
+          <h4 >Bienvenido</h4>
+        </div>
+        <div class="modal-body">
+          <p>Obtenga los mejores descuentos de sus tiendas favoritas.</p>
+          <p>Gracias por usar esta aplicación.</p>
+        </div>
+        <div class="modal-footer">
+          <p>Toque la pantalla para cerrar este aviso.</p>        
+        </div>
+      </div>
+    </div>
+
+    <div class='areaFire'>
+      <div class='boom'></div>
+      <div class='boom'></div>
+    </div>
+
+  </body>
+</html>

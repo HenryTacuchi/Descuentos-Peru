@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#42C1C7">
+  <title>Descuentos Perú</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/animate.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/custom-animation.css" rel="stylesheet">
+  <link href="css/loader.css" rel="stylesheet">
+  <link href="css/colors.css" rel="stylesheet">
+  <link href="css/style-tablet-ipad.css" rel="stylesheet">
+  <link href="css/style-smartphone-iphone.css" rel="stylesheet">
+
+  <script type="text/javascript" src="js/plugins/jquery.min.js"></script>
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="js/plugins/bootstrap.min.js"></script>       
+  <script type="text/javascript" src="js/scripts/scripts.js"></script>
+  <script type="text/javascript" src="js/scripts/database.js"></script>
+  <script type="text/javascript" src="js/scripts/login.js"></script>
+  <script type="text/javascript" src="js/scripts/captions.js"></script>
+
+  <!-- design script -->
+  <script type="text/javascript" src="js/scripts/design-promo.js"></script>
+
+  <script type="text/javascript"> 
+  $(document).ready(function(){
+    document.addEventListener("deviceready", onDeviceReady, false);  
+    function onDeviceReady() {
+      document.addEventListener("backbutton", onBackKeyDown, false); 
+    }
+    function onBackKeyDown() { 
+    }
+  });
+  </script> 
+
+</head>
+<body>
+
+  <div class="fb-like" data-send="true" data-width="450" data-show-faces="true">
+  </div>
+  <div class="container-app">
+
+    <div class="form-login">
+
+      <div class="header">
+        <p class="animated bounceInDown" id="imgAnimPos">
+          <img src="img/logoApp2.png">
+        </p>
+        <p class="animated bounceInDown bounceIn">Descuentos Perú</p>
+      </div>
+
+      <div class="form-group animated bounceInLeft">	 
+        <label class="lblMail">
+          Ingrese su correo
+        </label>
+        <input type="email" class="form-control valEmail" />
+
+      </div>         
+
+      <div class="form-group animated bounceInRight">	      
+        <button class="btn btn-default btnLogin" >Ingresar</button>        
+      </div>  
+
+      <div class="form-group animated bounceInUp">  
+        <div class="checkbox_wrapper">    
+          <input type="checkbox" class="chkremenber" />      
+          <label class="lblRemember" >Recordar Correo</label>
+        </div>
+      </div>     
+
+    </div>
+
+  </div>
+
+  <!-- no conexion -->
+  <div class="modal fade modalMessages" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Message</h4>
+        </div>
+        <div class="modal-body">
+          <p class="messageModal">Error Conexion</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Close</button>  
+        </div>/
+      </div>
+
+    </div>
+  </div>
+
+  <!-- alerts -->
+  <span class="btn-msg noEmail"></span>
+  <span class="btn-msg invalidEmail"></span>
+  <span class="btn-msg noConexion"></span>
+
+  <!-- loader -->
+  <div class='loader'>
+      <div class="loader-logo">
+        <svg version="1.1" class="loader-logo-spinner" 
+        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+        <path id="XMLID_12_" 
+        style="fill-rule:evenodd;clip-rule:evenodd;fill:none;stroke-miterlimit:10;" d="M129.2,143.6c0,0,9.8-9.8,21.5-21.5c-8.1-6.8-27.2-8.8-46.3,13.6C91.3,151,89.9,166.6,99,224.4c2.7,17.5,13.2,64.6-17.7,86
+        c-29.9,20.8-64.4-1.8-71-49.2c-6.4-45.4-2.2-96.8,23.9-134.5c17-24.6,49.4-39.6,64.2-41c12.4-1.1,50.5-3.2,72.6,16.2
+        c10.8-10.8,19.4-19.4,19.4-19.4c13.6-13.6,29.8-16.3,51.4-7.7C277,89,334.8,108,346.1,119.3l143.4,143.4c17.7,17.7,17.7,46.4,0,64.2
+        L372.7,443.5c-17.7,17.7-46.4,17.7-64.2,0L165.2,300.2c-11-11-32.2-70.4-44.4-103.1C113.6,177.8,113.9,159,129.2,143.6z"/>
+      </svg>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,240 @@
+.form-login{
+	background-color: transparent;
+	color: #FFFFFF;
+}
+.form-control{
+	background-color: transparent;
+}
+
+.categories li.active{	
+	background-color: #E0E31C !important;
+	color: #42C1C7;
+}
+
+.promotions .discountPromo,
+.detail .discountDetail{
+	color: #000000;
+}
+.imgUser svg g {
+	fill: #000000 !important;
+	stroke: #000000;
+}
+
+
+.logoutUser path,
+#iconLocation,
+#iconRestriction #XMLID_1_{
+  fill: #FFFFFF;
+}
+.promotions .titlePromo,
+.titleDetail {
+	color: #42C1C7;
+}
+
+.btn-msg{
+  background-color: rgba(31, 74, 100, 0.88);
+  border: 3px solid rgb(31, 74, 100);
+  color: #FFFFFF;
+}
+.form-login input{
+  color: transparent;
+  text-shadow: 0 0 0 #FFFFFF;
+}
+.form-control:focus {
+	border-color: #42C1C7;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(66, 193, 199,0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(66, 193, 199,0.6);
+}
+.form-login button,
+.modal-footer button,
+.modal-footer button:active,.modal-footer button:hover,
+.btnStores,.btnRestriction{
+  background-color: #42C1C7;
+  color: #FFFFFF;
+}
+.form-login button:hover,.form-login button:active{  
+  background-color: #e0e31c;
+  color: #1f4a64;
+}
+.modal-body,
+.modal-footer,
+.promotions li,
+.areaDetail,
+.areaRestriction,
+.card .front,
+.card .back{
+  background-color: #FFFFFF;
+  background: #FFFFFF;
+}
+.modal-header{
+	background-color: #030303;
+	color: #E0E31C;	
+}
+.modal-content{
+  background-color: transparent;
+}
+
+.form-group input[type="checkbox"] + label:after {
+	background-color: #FFFFFF;
+	box-shadow: 0 3px 5px rgba(0,0,0,0.5);
+}
+.form-group input[type="checkbox"] + label:active:after {
+  box-shadow: 0 2px 3px rgba(0,0,0,0.35);
+}
+.form-group input[type="checkbox"]:checked + label:after {
+  box-shadow: 0 2px 3px rgba(0,0,0,0.35);
+}
+.form-group input[type="checkbox"]:checked + label:before {
+  background-color: #42C1C7;
+}
+.form-group input[type="checkbox"] + label:before {
+	background-color: #D7D7D7;
+}
+
+/*promotions.html*/
+.swiper-slide {
+  background-color: transparent;
+}
+.swiper-slide:not(:first-child),
+.menuButton,
+.panelUser{
+  background-color: #1F4A64;
+}
+.pagination{
+  background-color: #000000;
+}
+.pagination .categoryNameButton{
+  color: #E0E31C;
+}
+
+.line{
+  background-color:#e0e31c;
+}
+button:hover .line{
+  background-color:#999;
+}
+.menu-on .line-m, .menu-on:hover .line-m{
+  background-color:transparent;
+}
+.categoryNameButton div{
+  background-color: #42C1C7;
+  color: #000000;
+}
+
+.categories{
+  background-color: transparent;
+}
+.active .categoryIcon svg {
+  fill: #42C1C7;
+}
+.promotions #iconDiscount,
+#iconDiscountDetail{
+  fill: #E0E31C;
+}
+svg#Capa_1 {
+  fill: #FFFFFF !important;
+}
+
+#favorites{
+  background-color: rgba(80, 225, 235, 0.8);
+}
+#shoes{
+  /*background-color: #4de1e8;*/
+  background-color: rgba(75, 205, 215, 0.8);
+}
+#clothing{
+  background-color: rgba(70, 185, 195, 0.8);
+}
+#home{
+  background-color: rgba(65, 165, 175, 0.8);
+}
+#accesories{
+  background-color: rgba(60, 145, 155, 0.8);
+}
+#others{
+  background-color: rgba(55, 125, 135, 0.8);
+}
+#sports{
+  background-color: rgba(50, 105, 115, 0.8);
+}
+.categoryName{
+  background-color: transparent;
+  color: #FFFFFF;
+}
+.promotions .areaDescription{
+  background-color: rgba(0, 0, 0, 0.75);
+}
+.promotions .descriptionPromo,
+.welcomeContent p,
+.welcomeContent h4,
+.emailUser,
+.categoryQty {
+  color: #FFFFFF;
+}
+
+#iconRestriction #bolitas circle{
+  fill: #42C1C7;
+}
+.btnStores:hover,
+.btnStores:active,
+.btnRestriction:hover,
+.btnRestriction:active{
+	background-color: #000000;
+  color: #fafafa;  
+}
+.titleRestriction{
+  color: #42C1C7;
+}
+
+/*Welcome message*/
+.welcomeContent{   
+  background-color: rgba(31, 74, 100, 0.88);
+  border: 5px solid rgb(31, 74, 100);
+}
+.welcomeContent .modal-body,
+.welcomeContent .modal-footer,
+.welcomeContent .modal-header{
+  background-color: transparent;
+}
+
+
+/*social networks*/
+.likely .likely__icon{
+  background-color: #000000;
+}
+.likely__widget_facebook,
+.likely__widget_twitter,
+.likely__widget_gplus,
+.likely__widget_pinterest{
+  fill: #E0E31C !important;
+}
+.likely .likely__widget{
+  background-color: transparent;
+}
+
+/*favorite icon*/
+.heartIcon ~ div{
+  background-color: #D53D0C; 
+}
+
+
+
+.spark.red {
+  background-color: #D53D0C;
+  color: #D53D0C;
+}
+
+.spark.green {
+  background-color: #42C1C7;
+  color: #42C1C7;
+}
+
+.spark.yellow {
+  background-color: #E0E31C;
+  color: #E0E31C;
+}
+
+.spark.white {
+  background-color: #FFFFFF;
+  color: #FFFFFF;
+}
