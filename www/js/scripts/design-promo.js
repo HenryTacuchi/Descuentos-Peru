@@ -1,5 +1,13 @@
 // In this jquery, you can find animations, append sections for this app.
 $(document).ready(function(){
+  document.addEventListener("deviceready", onDeviceReady, false);  
+  function onDeviceReady() {
+    document.addEventListener("backbutton", onBackKeyDown, false); 
+  }
+  function onBackKeyDown() { 
+  }
+
+
 
 
 	// detect device type

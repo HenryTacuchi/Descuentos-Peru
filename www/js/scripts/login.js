@@ -1,12 +1,13 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 //boton login para insertar data en la table customer
 
 $(document).ready(function () {
+     document.addEventListener("deviceready", onDeviceReady, false);  
+    function onDeviceReady() {
+      document.addEventListener("backbutton", onBackKeyDown, false); 
+    }
+    function onBackKeyDown() { 
+    }
+
     //localStorage.clear();
     onInit();
     validationEmail();   
@@ -30,10 +31,12 @@ $(document).ready(function () {
                 }
             }
         }else{
-   noConexionMessage();// this method is in scripts.js      
-}
+            noConexionMessage();// this method is in scripts.js      
+        }
+    });
 });
-});
+
+
 
 
 
@@ -71,78 +74,70 @@ function Login(email,check) {
                 //si es distinto a 0 que ya esta registrado
 
                 if(results.rows.length!=0){
-
                     if(check=='1'){
                         var query2="UPDATE CUSTOMER SET save='1' WHERE customerEmail='"+email+"'";
                          localDB.transaction(function (transaction) {
                             transaction.executeSql(query2, [], function (transaction, results){
-                                 $.ajax({
-                        type: "GET",
-                        url: "http://72.87.163.31/ServicePromotions/Service.svc/Login/"+email,
-                        async: false,
-                        dataType: "json",
-                        crossdomain: true,
-                        beforeSend: function () {
-                            showLoading();
-                        },
-                        complete: function () {
-                            hideLoading();
-                        },
-                        success: function (result) {
-                            localStorage.newUser= 0;
-                            localStorage.lastCategoryVisited="";
-                            localStorage.email= email;
-                            localStorage.Categories= JSON.stringify(result);
-                            window.location = "./views/promotions.html";         
-                        },
-                        error: function (error, ajaxOptions, thrownError) {
-                            alert(error.status + " ajax ");
-                            console.log(error.statusText);
-                            console.log(error.responseText);  
-                        }
-                    });
-
-
-
+                                $.ajax({
+                                    type: "GET",
+                                    url: "http://72.87.163.31/ServicePromotions/Service.svc/Login/"+email,
+                                    async: false,
+                                    dataType: "json",
+                                    crossdomain: true,
+                                    beforeSend: function () {
+                                        showLoading();
+                                    },
+                                    complete: function () {
+                                        hideLoading();
+                                    },
+                                    success: function (result) {
+                                        localStorage.newUser= 0;
+                                        localStorage.lastCategoryVisited="";
+                                        localStorage.email= email;
+                                        localStorage.Categories= JSON.stringify(result);
+                                        window.location = "./views/promotions.html";         
+                                    },
+                                    error: function (error, ajaxOptions, thrownError) {
+                                        alert(error.status + " ajax ");
+                                        console.log(error.statusText);
+                                        console.log(error.responseText);  
+                                    }
+                                });
                             });
                         });
 
                     }else{
                         var query3="UPDATE CUSTOMER SET save='0' WHERE customerEmail='"+email+"'";
-                         localDB.transaction(function (transaction) {
+                        localDB.transaction(function (transaction) {
                             transaction.executeSql(query3, [], function (transaction, results){
-                                 $.ajax({
-                        type: "GET",
-                        url: "http://72.87.163.31/ServicePromotions/Service.svc/Login/"+email,
-                        async: false,
-                        dataType: "json",
-                        crossdomain: true,
-                        beforeSend: function () {
-                            showLoading();
-                        },
-                        complete: function () {
-                            hideLoading();
-                        },
-                        success: function (result) {
-                            localStorage.newUser= 0;
-                            localStorage.lastCategoryVisited="";
-                            localStorage.email= email;
-                            localStorage.Categories= JSON.stringify(result);
-                            window.location = "./views/promotions.html";         
-                        },
-                        error: function (error, ajaxOptions, thrownError) {
-                            alert(error.status + " ajax ");
-                            console.log(error.statusText);
-                            console.log(error.responseText);  
-                        }
-                    });
-
-
-                                
+                                $.ajax({
+                                    type: "GET",
+                                    url: "http://72.87.163.31/ServicePromotions/Service.svc/Login/"+email,
+                                    async: false,
+                                    dataType: "json",
+                                    crossdomain: true,
+                                    beforeSend: function () {
+                                        showLoading();
+                                    },
+                                    complete: function () {
+                                        hideLoading();
+                                    },
+                                    success: function (result) {
+                                        localStorage.newUser= 0;
+                                        localStorage.lastCategoryVisited="";
+                                        localStorage.email= email;
+                                        localStorage.Categories= JSON.stringify(result);
+                                        window.location = "./views/promotions.html";         
+                                    },
+                                    error: function (error, ajaxOptions, thrownError) {
+                                        alert(error.status + " ajax ");
+                                        console.log(error.statusText);
+                                        console.log(error.responseText);  
+                                    }
+                                });
                             });
                         });
-
-                    }
+                     }
 
                    
                 }else{
@@ -176,13 +171,9 @@ function Login(email,check) {
                                 console.log(error.responseText);  
                             }
                         });
-
-
                     });
                 });
                 }
-
-
             });
         });
     } catch (e) {
