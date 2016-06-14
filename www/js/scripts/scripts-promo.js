@@ -6,8 +6,8 @@ $(document).ready(function(){
   setSocialsPosition();
   //Inicializa el objeto Swiper con sus parametros.
   var swiper;
-  if(localStorage.newUser==1)
-  {
+  //usuario nuevo
+  if(localStorage.existUser==0){
     swiper = new Swiper('.swiper-container', {
       centeredSlides: true,
       paginationClickable: true,
@@ -15,36 +15,30 @@ $(document).ready(function(){
       initialSlide: 0
     }); 
     $(".menuButton").addClass("menu-on");
-
-//welcome message
-setTimeout(function() { $('.modalWelcomeMessage').modal('show'); }, 2000);
-}
-else
-{
-  //usuario antiguo pero que no pu
-  if(localStorage.lastCategoryVisited==""){
-    swiper = new Swiper('.swiper-container', {
-      centeredSlides: true,
-      paginationClickable: true,
-      spaceBetween: 0,
-      initialSlide: 0
-    }); 
-    $(".menuButton").addClass("menu-on");
-
-
+    //welcome message
+    setTimeout(function() { $('.modalWelcomeMessage').modal('show'); }, 2000);
   }else{
+    //usuario registrado 
+    if(localStorage.lastCategoryVisited==""){
+      swiper = new Swiper('.swiper-container', {
+        centeredSlides: true,
+        paginationClickable: true,
+        spaceBetween: 0,
+        initialSlide: 0
+      }); 
+    $(".menuButton").addClass("menu-on");
+    }else{
 
-    swiper = new Swiper('.swiper-container', {
-      centeredSlides: true,
-      paginationClickable: true,
-      spaceBetween: 0,
-      initialSlide: 1
-    });
-    LoadParticularCategory(localStorage.lastCategoryVisited,swiper);
-    $(".menuButton").removeClass("menu-on");    
+      swiper = new Swiper('.swiper-container', {
+        centeredSlides: true,
+        paginationClickable: true,
+        spaceBetween: 0,
+        initialSlide: 1
+      });
+      LoadParticularCategory(localStorage.lastCategoryVisited,swiper);
+      $(".menuButton").removeClass("menu-on");    
+    }
   }
-
-}
 
 setFavoritePosition(swiper);
 configSlides(swiper);
@@ -178,7 +172,7 @@ $(document.body).on('click', '.btnStores' ,function(){
   $('.StoreLocationList li').remove();
   $.ajax({
     type: "GET",
-    url: "http://72.87.163.31/ServicePromotions/Service.svc/GetCompanies/"+localStorage.promoId,
+    url: "http://192.168.1.157/ServicePromotions/Service.svc/GetCompanies/"+localStorage.promoId,
     async: false,
     dataType: "json",
     crossdomain: true,
@@ -333,7 +327,7 @@ function GetCategoryInfo(CategoryId){
 
           $.ajax({
             type: 'GET',
-            url: "http://72.87.163.31/ServicePromotions/Service.svc/GetFavorites/"+promoIds,
+            url: "http://192.168.1.157/ServicePromotions/Service.svc/GetFavorites/"+promoIds,
             async: false,
             dataType: "json",
             crossdomain: true,
@@ -379,7 +373,7 @@ function GetCategoryInfo(CategoryId){
 
   $.ajax({
     type: 'GET',
-    url: "http://72.87.163.31/ServicePromotions/Service.svc/GetPromotions/"+CategoryId,
+    url: "http://192.168.1.157/ServicePromotions/Service.svc/GetPromotions/"+CategoryId,
     async: false,
     dataType: "json",
     crossdomain: true,
@@ -449,7 +443,7 @@ function SavePromoUser(){
   //{"postPromo":{"Email":"fernandmorausky@gmail.com","PromoId":"0"}}
   $.ajax({
     type: "GET",
-    url: "http://72.87.163.31/ServicePromotions/Service.svc/PostSelectedPromo/"+email+"/"+promoId,
+    url: "http://192.168.1.157/ServicePromotions/Service.svc/PostSelectedPromo/"+email+"/"+promoId,
     async: false,
     contentType: "json",
     crossdomain: true,
@@ -467,7 +461,7 @@ function SaveCategoryUser(){
   if(!(localStorage.lastCategoryVisited=="Favorites" || localStorage.lastCategoryVisited=="Favoritos")){
     $.ajax({
       type: "GET",
-      url: "http://72.87.163.31/ServicePromotions/Service.svc/PostSelectedCategory/"+ email+"/"+categoryId,
+      url: "http://192.168.1.157/ServicePromotions/Service.svc/PostSelectedCategory/"+ email+"/"+categoryId,
       async: false,
       contentType: "json",
       crossdomain: true,
@@ -504,7 +498,7 @@ function LoadCategries(){
    '<div class="categoryQty favorites">0</div>'+
    '<input id="CategoryId" type="hidden" value="6"></input>'+
    '</li>');
-  $.each(result.LoginResult.Categories, function( index, value ) {
+  $.each(result, function( index, value ) {
     $('.categories').append('<li id= "'+ value.CategoryName+'">'+
       '<div class="categoryIcon '+value.CategoryName.toLowerCase().replace(/ /g,'')+'"></div>'+
       '<div class="categoryName">' + value.CategoryName +'</div>'+

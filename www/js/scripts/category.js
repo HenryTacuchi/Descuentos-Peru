@@ -9,6 +9,19 @@ $(window).load(function () {
 
 function closeSession(){  
   try {
+    var queryDelete = "DELETE FROM  " + TABLE_CUSTOMER;
+    localDB.transaction(function (tx) {
+      tx.executeSql(queryDelete, [], function (tx, results) {
+        localStorage.lastCategoryVisited="";
+        window.location = "../index.html";
+      }, errorHandler);
+    });
+  } catch (e) {
+    console.log("Error closeSession " + e + ".");
+  }
+
+/*
+try {
     var queryDelete = "UPDATE " + TABLE_CUSTOMER+" SET save='0' WHERE customerEmail='"+localStorage.email+"'";
     localDB.transaction(function (tx) {
       tx.executeSql(queryDelete, [], function (tx, results) {
@@ -19,6 +32,9 @@ function closeSession(){
   } catch (e) {
     console.log("Error closeSession " + e + ".");
   }
+*/
+
+
 }
 
 function writeEmail(){

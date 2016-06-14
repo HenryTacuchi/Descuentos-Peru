@@ -103,3 +103,15 @@ function checkNetConnection() {
         return false;
     }
 }
+
+function deletedTableCustomer(){
+    try {
+        var queryDelete = "DELETE FROM  " + TABLE_CUSTOMER;
+        localDB.transaction(function (tx) {
+          tx.executeSql(queryDelete, [], function (tx, results) {}, errorHandler);
+        });
+    } catch (e) {
+        console.log("Error closeSession " + e + ".");
+    }
+
+}
