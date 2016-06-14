@@ -386,6 +386,10 @@ p#imgAnimPos {
   padding: 35px;
 }
 
+.btnFacebook{
+  background-color: #49639f !important;
+}
+
 
 @media all and (orientation:landscape) {
 
