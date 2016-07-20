@@ -136,6 +136,9 @@ svg#Capa_1 {
 }
 
 #favorites{
+  background-color: rgba(85, 245, 255, 0.8);
+}
+#featured{
   background-color: rgba(80, 225, 235, 0.8);
 }
 #shoes{

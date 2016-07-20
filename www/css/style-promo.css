@@ -222,9 +222,9 @@ svg#logoutIcon{
   transform: scale(0,0);
   -webkit-transform: scale(0,0);
 }
-.categories li#favorites{
+/*.categories li#favorites{
   width: 100%;
-}
+}*/
 .categoryQty {
   position: relative;
   width: 100%;
@@ -522,6 +522,11 @@ svg#Capa_1 {
 
 .categoryIcon img{
   width: 80%;
+}
+
+.mapLocation{
+  width: 100%;
+  background-color: #000000;
 }
 
 /*Welcome message*/

@@ -81,9 +81,6 @@ configSlides(swiper);
   });
 
 
-
-
-
 //click en cada promotions take in Promoid unicos
 $(document.body).on('click', '.promotions li' ,function(){
   $('.categoryNameButton').addClass("hide");
@@ -149,74 +146,89 @@ $('.modalStoresLocations').on('show.bs.modal', function() {
 });
 
 $(".menuButton").on("click",function(){
+
   if($(this).hasClass('menu-on')){
+    //not categories
     $(this).removeClass("menu-on");
 
     swiper.unlockSwipeToNext();
     swiper.slideNext();
     GetCategoryInfo($('.categories li').first().childNodes.item(3).value);   
   }else{
-    $(this).addClass("menu-on");
-    swiper.slideTo(0);
 
+    if(swiper.activeIndex == 3){
+      swiper.unlockSwipeToPrev();
+      swiper.slideTo(2);
+    }else{
+      //categories
+      $(this).addClass("menu-on");
+      swiper.slideTo(0);
+    }
+    
   }    
+
+
 });
 
 
 
 
 
-//Load store for promotion
-$(document.body).on('click', '.btnStores' ,function(){ 
-  $('.StoreLocationList li').remove();
-  var array={PromoIds:localStorage.promoId}
+  //Load store for promotion
+  $(document.body).on('click', '.btnStores' ,function(){ 
+    $('.StoreLocationList li').remove();
+    var array={PromoIds:localStorage.promoId}
 
-  $.ajax({
-    type: "POST",
-    url: "http://192.168.1.157/DescuentosPeru/WCFDescuentosPeru.svc/GetStore/Post",
-    data: JSON.stringify(array),
-    contentType: 'application/json; charset=utf-8',
-    async: true,
-    dataType: "json",
-    crossdomain: true,
-    beforeSend: function () {
-      showLoading(); 
-    },
-    complete: function () {
-      hideLoading();
-    },
-    success:function(result){  
-      if (result.Quantity!=null){                          
-        $.each(result.Data, function( index, value ){
-         var template= _.template($('#locationsTemplate').html());
-         var html= template ({
-          storeName: value.CompanyName,
-          storeAddress: value.Address,
-          storePhone: value.phone1
-        });
-         $('.StoreLocationList').append(html);
-       } );  
-      }
+    $.ajax({
+      type: "POST",
+      url: "http://192.168.1.157/DescuentosPeru/WCFDescuentosPeru.svc/GetStore/Post",
+      data: JSON.stringify(array),
+      contentType: 'application/json; charset=utf-8',
+      async: true,
+      dataType: "json",
+      crossdomain: true,
+      beforeSend: function () {
+        showLoading(); 
+      },
+      complete: function () {
+        hideLoading();
+      },
+      success:function(result){  
+        if (result.Quantity!=null){                          
+          $.each(result.Data, function( index, value ){
+           var template= _.template($('#locationsTemplate').html());
+           var html= template ({
+            storeName: value.CompanyName,
+            storeAddress: value.Address,
+            storePhone: value.phone1
+          });
+           $('.StoreLocationList').append(html);
+         } );  
+        }
 
-      $('.modalStoresLocations').modal('show');
+        $('.modalStoresLocations').modal('show');
 
-    },                
-    error: function(error) {
-      console.log('Error');
-    }                 
-  });  
+      },                
+      error: function(error) {
+        console.log('Error');
+      }                 
+    });  
 
-});
+  });
 
 
-$('.imgUser').append(
-    // "<svg version='1.1' id='iconUser' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px'  viewBox='39 -39.6 108.6 108.6' style='enable-background:new 39 -39.6 108.6 108.6;' xml:space='preserve'><path fill='black' stroke='black' d='M96.5,62c11.6-1.9,30-12.2,39-12.2l-3.1-13.5c-1-1-2.1-1.8-3.4-2.5c-6.6-3.4-13.4-6.2-20.2-8.8c-0.5-0.2-1.1-0.6-1.3-1  c-0.6-1.2-0.9-2.6-1.4-3.8c-0.2-0.8-0.5-1.6-1.4-2c-0.2-0.1-0.5-0.6-0.5-0.9c0.1-3-0.6-6.2,1.6-8.8c0.1-0.1,0.1-0.2,0.1-0.3  c1.2-2.6,1.4-5.7,3.1-8.1c0-0.1,0.1-0.1,0.1-0.2c0.2-1.9,0.4-3.7,0.6-5.6c0-0.2-0.2-0.6-0.4-0.7c-0.9-0.3-0.9-1.1-0.9-1.8  c0-3.7,0-4.2,0-7.9c0-2.1-0.6-4-2.2-5.5c-1.8-1.6-3.7-3.2-5.6-4.8c-0.9-0.8-1-1.4-0.1-2.2c0.4-0.4,0.9-0.6,1.3-1  c-0.1-0.1-0.2-0.3-0.3-0.4c-0.6,0-1.1-0.1-1.7,0c-2.1,0.3-4.2,0.6-6.2,1.1c-3.9,0.9-7.7,2.1-10.9,4.8c-2.2,1.8-3.9,3.9-4.1,6.8  c-0.1,1.5-0.1,3.1-0.1,4.6c0,2.5,0,1.9,0,4.4c0,0.4-0.2,1.1-0.5,1.2c-1,0.3-1,1-0.9,1.8c0.1,0.6,0,1.2,0.2,1.8  c0.3,1.6,0.7,3.1,1.2,4.7c0.3,1.2,1,2.2,1.2,3.4c0.4,2.3,1.2,4.4,2.8,6.2c0.3,0.3,0.5,0.8,0.4,1.2c-0.1,1.8-0.3,3.6-0.6,5.4  c-0.1,0.3-0.4,0.9-0.7,0.9c-1.2,0.2-1.4,1.2-1.7,2.1c-0.4,1.2-0.8,2.5-1.3,3.7c-0.1,0.4-0.5,0.8-0.9,0.9c-2.1,0.9-4.3,1.8-6.4,2.7  c-2.3,1-4.6,1.9-6.8,2.9c-2.3,1.1-4.5,2.3-6.8,3.5c-1.3,0.7-2.6,1.5-3.6,2.5l-3.1,13.3c15.3,0,23.2,11,39.1,12.4L96.5,62z'/></svg>"
-    "<img src='../img/iconUser.svg'>"
-    );
 
-$('.logoutUser').append(
-  "<svg version='1.1' id='logoutIcon' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='-982 982.4 870.3 870.3' style='enable-background:new -982 982.4 870.3 870.3;' xml:space='preserve'> <g fill='white' stroke='white'> <path stroke-width='0' d='M-421,1271.3c27.9,11.8,53.7,27.3,77.1,46.2v-133.6c0-111.1-90.4-201.5-201.5-201.5h-3.1c-111,0-201.4,90.4-201.4,201.5 v133.6c23.4-18.9,49.2-34.4,77.1-46.2c7.5-3.2,15.2-6.1,22.9-8.7v-78.7c0-56,45.5-101.5,101.5-101.5h3.1 c56,0,101.5,45.5,101.5,101.5v78.8C-436.2,1265.2-428.5,1268.1-421,1271.3z'/> <path stroke-width='0' d='M-830.3,1569.3c0,156.5,126.9,283.4,283.4,283.4s283.4-126.8,283.4-283.4c0-76.9-30.7-146.7-80.4-197.8 c-28-28.7-62-51.5-100-66.4c-31.9-12.5-66.7-19.3-103-19.3c-36.3,0-71.1,6.8-103,19.3c-38,14.8-72,37.6-100,66.4 C-799.7,1422.6-830.3,1492.4-830.3,1569.3z M-619.9,1512.1c1-38.7,32.5-70.2,71.2-71.1c41.1-1,74.8,32.1,74.8,73 c0,4.3-0.4,8.5-1.1,12.5c-3.6,20.7-15.9,38.5-33.1,49.3c-7.1,4.5-10.7,12.9-8.9,21l21.7,102.9c1.3,6.2-3.4,12.1-9.8,12.1h-83.6 c-6.4,0-11.1-5.8-9.8-12.1l21.7-102.9c1.7-8.2-1.8-16.6-8.9-21.1c-17.2-10.8-29.5-28.5-33.1-49.3 C-619.6,1521.8-620,1517-619.9,1512.1z'/> </g> </svg> "
-  );
+  // show new swiper for map
+  $(document.body).on('click', '.StoreLocationList li' ,function(){ 
+    $('.modalStoresLocations').modal('hide');
+
+    swiper.unlockSwipeToNext();
+    swiper.slideTo(3);
+    swiper.lockSwipeToPrev();
+
+  });
+
+
 });
 
 
@@ -385,11 +397,6 @@ function GetCategoryInfo(CategoryId){
             })
           })
 
-         
-
-
-
-
 
         });
       });
@@ -519,6 +526,12 @@ function LoadCategries(){
    '<div class="categoryName">Favorites</div>'+
    '<div class="categoryQty favorites">0</div>'+
    '<input id="CategoryId" type="hidden" value="6"></input>'+
+   '</li>'+
+   '<li id= "featured">'+
+   '<div class="categoryIcon featured"><img src="../img/featured.svg"></div>'+
+   '<div class="categoryName">Featured</div>'+
+   '<div class="categoryQty favorites">0</div>'+
+   '<input id="FeaturedId" type="hidden" value=""></input>'+
    '</li>');
   $.each(result, function( index, value ) {
     $('.categories').append('<li id= "'+ value.CategoryName+'">'+

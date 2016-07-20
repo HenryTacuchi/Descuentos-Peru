@@ -60,7 +60,7 @@ input[type="checkbox"] + label:after{
   height: 65px;
 }
 /*height promotions*/
-.scrollPromo {
+.scrollPromo, .mapLocation {
   margin-top: 65px;
 }
 /*swipe 0*/

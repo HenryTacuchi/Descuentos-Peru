@@ -59,8 +59,8 @@
   .panelUser{
     height: 45px;
   }
-  /*height promotions*/
-  .scrollPromo {
+  /*height promotions,map*/
+  .scrollPromo,.mapLocation {
     margin-top: 45px;
   }
   /*swipe 0*/
@@ -373,7 +373,7 @@
     height: 40px;
   }
   /*height promotions*/
-  .scrollPromo {
+  .scrollPromo, .mapLocation {
     margin-top: 40px;
   }
   /*swipe 0*/
