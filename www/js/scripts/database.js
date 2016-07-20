@@ -115,3 +115,20 @@ function deletedTableCustomer(){
     }
 
 }
+
+function buttonExitApp() {
+    navigator.app.exitApp();
+}
+
+function insertTablePromo(idpromo,email){
+    try {
+        var query1="INSERT INTO PROMO(promoId,emailId) VALUES('"+idpromo+"','"+email+"')";
+        localDB.transaction(function (tx){
+          tx.executeSql(query1, [], function (tx, results){
+          });
+        });
+      } catch (e) {
+        console.log("Error closeSession " + e + ".");
+    }
+
+}

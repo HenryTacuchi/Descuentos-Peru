@@ -1,6 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.retailcs.descuentosperu" version="0.0.1" versionCode="1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Descuentos Perú</name>
+<widget id="com.retailcs.descuentosperu" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+
+
+
+     <name>Descuentos Perú</name>
     <description>
         Encuentre los mejores descuentos
     </description>
@@ -9,9 +12,9 @@
     </author>
     <content src="index.html" />
     <preference name="AutoHideSplashScreen" value="true" />
-    <preference name="SplashScreenDelay" value="2000" />
+    <preference name="SplashScreenDelay" value="3000" />
     <preference name="FadeSplashScreen" value="true" />
-    <preference name="FadeSplashScreenDuration" value="1000" />
+    <preference name="FadeSplashScreenDuration" value="2000" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="Fullscreen" value="false" />
@@ -57,8 +60,12 @@
         <splash height="1024" src="www/res/screen/ios/Default-Portrait.png" width="768" />
         <splash height="2048" src="www/res/screen/ios/Default-Portrait@2x.png" width="1536" />
     </platform>
+
+
+
+
     <plugin name="cordova-plugin-facebook4" spec="https://github.com/jeduan/cordova-plugin-facebook4">
-        <variable name="APP_ID" value="1191124850918660" />
-        <variable name="APP_NAME" value="DescuentosPeru" />
+        <variable name="APP_ID" value="303371396671663" />
+        <variable name="APP_NAME" value="Descuentos Perú" />
     </plugin>
 </widget>

@@ -22,21 +22,17 @@
   <script type="text/javascript" src="js/scripts/database.js"></script>
   <script type="text/javascript" src="js/scripts/login.js"></script>
   <script type="text/javascript" src="js/scripts/captions.js"></script>
+  <script type="text/javascript" src="js/scripts/facebookConnectPlugin.js"></script>
+
 
   <!-- design script -->
   <script type="text/javascript" src="js/scripts/design-promo.js"></script>
 
+
+
 </head>
 
 <body>
-
-<sript type="text/javascript">
-
-</sript>
-
-
-
-
   <div class="fb-like" data-send="true" data-width="450" data-show-faces="true">
   </div>
   <div class="container-app">
@@ -59,26 +55,24 @@
       </div>         
 
       <div class="form-group animated bounceInRight">	      
-        <button class="btn btn-default btnLogin" >Ingresar</button> 
+        <button class="btn btn-default btnLogin" onclick="" >Ingresar</button> 
       </div>
 
       <!-- Facebook button -->
       <div class="form-group animated bounceInUp">       
-        <button class="btn btn-default btnFacebook" >Ingresar con Facebook</button> 
+        <button class="btn btn-default btnFacebook" onclick="buttonLoginFacebook();">Ingresar con Facebook</button> 
       </div>
 
 
 <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="true" data-auto-logout-link="true"></div>
       <div class="form-group animated bounceInUp">  
         <div class="checkbox_wrapper">    
-          <input type="checkbox" class="chkremenber" />      
+          <input type="checkbox" class="chkremenber" checked/>      
           <label class="lblRemember" >Recordar Correo</label>
         </div>
-      </div>     
-
+      </div>
     </div>
-
-  </div>
+</div>
 
   <!-- no conexion -->
   <div class="modal fade modalMessages" role="dialog">

@@ -2,56 +2,11 @@
 
 $(document).ready(function () {
     document.addEventListener("deviceready", onDeviceReady, false);  
-    
+
     function onDeviceReady() {
-        document.addEventListener("backbutton", onBackKeyDown, false); 
-
-        var fbLoginSuccess = function (userData) {
-          console.log("UserInfo: ", userData);
-          facebookConnectPlugin.getAccessToken(function(token) {
-            console.log("Token: " + token);
-          });
-        }
-
-        facebookConnectPlugin.login(["public_profile"], fbLoginSuccess,
-          function loginError (error) {
-            console.error(error)
-          }
-        );
-
-
-
-        // facebookConnectPlugin.appInvite(
-        //     {
-        //         url: "https://play.google.com/store/apps/details?id=com.realcs.report&hl=es_419",
-        //         picture: "http://retailcs.com/demos/logodescuentosperu.html"
-        //     },
-        //     function(obj){
-        //         if(obj) {
-        //             if(obj.completionGesture == "cancel") {
-        //                 // user canceled, bad guy
-        //             } else {
-        //                 // user really invited someone :)
-        //             }
-        //         } else {
-        //             // user just pressed done, bad guy
-        //         }
-        //     },
-        //     function(obj){
-        //         // error
-        //         console.log(obj);
-        //     }
-        // );
-
-
-        
-
-
-
-
-
-      
+        document.addEventListener("backbutton", onBackKeyDown, false);  
     }
+
     function onBackKeyDown() { 
          navigator.app.exitApp();
     }
@@ -59,8 +14,6 @@ $(document).ready(function () {
     onInit();
     validationEmail();   
 });
-
-
 
 
 
@@ -87,13 +40,45 @@ $(window).load(function(){
             noConexionMessage();// this method is in scripts.js      
         }
     });
-
-
-
-
 });
 
 
+
+function buttonLoginFacebook(){
+    var fbLoginSuccess = function (userData) {
+        console.log("UserInfo: "+ JSON.stringify(userData));
+        localStorage.setItem("idUser",userData.authResponse.userID);
+        obtenerEmail();
+    }
+
+    facebookConnectPlugin.login(['public_profile'], fbLoginSuccess,
+        function loginError (error) {
+            console.log(error);
+        }
+    );
+}
+
+
+function obtenerEmail(){
+    var idEmail=localStorage.getItem("idUser");
+    facebookConnectPlugin.api(""+idEmail+"/?fields=id,email,name", ["email"],
+    function (result) 
+    {
+        console.log("Result: " + JSON.stringify(result));
+        Login(result.email,"1");
+    },
+    function (error) 
+    {
+        console.log("Failed: " + JSON.stringify(error));
+    });
+
+}
+
+
+function buttonLogoutFace(){
+    facebookConnectPlugin.logout();
+}
+ 
 
 //funcion de validacion de correo
 function validarEmail( email ) {
@@ -122,7 +107,7 @@ function validarEmail( email ) {
 function Login(email,check) {
     try {
         var array;
-        //select veriifca que que el ussuario esta registrado en la base de datos
+        //select verifica que que el ussuario esta registrado en la base de datos
         var query1="SELECT * FROM CUSTOMER";
         localDB.transaction(function (transaction) {
             transaction.executeSql(query1, [], function (transaction, results){
@@ -148,29 +133,22 @@ function Login(email,check) {
                                 hideLoading();
                             }, success: function (data) {
                                 localStorage.existUser=data.Exist;
-                                localStorage.email= email;
-                                localStorage.Categories= JSON.stringify(data.Data);
-                                window.location = "./views/promotions.html";  
+                                localStorage.DescuentosPeruEmail=email;
+                                localStorage.Categories=JSON.stringify(data.Data);
+                                window.location.href ="views/promotions.html";  
                             }, error: function (xhr, ajaxOptions, thrownError) {
                                 console.log(xhr.status);
                                 console.log(xhr.statusText);
                                 console.log(xhr.responseText);
-                                hideLoading();
                                 if (current_lang == 'es'){
                                     mostrarModalGeneral("Error de Conexión");
-                                }
-                                else{
+                                }else{
                                     mostrarModalGeneral("No Connection");
                                 }
                             }
                         });
                     });
                 });
-
-
-
-                
-
 /*
                 //si es distinto a 0 que ya esta registrado
                 if(results.rows.length!=0){
@@ -271,8 +249,6 @@ function Login(email,check) {
                 });
                 }
 */
-
-
             });
         });
     } catch (e) {
@@ -286,20 +262,20 @@ function Login(email,check) {
 function validationEmail(){
     if(checkNetConnection()){
         try {
-        var query1="SELECT * FROM "+ TABLE_CUSTOMER +" WHERE save='1'";
-        var cant=0;
-        var email="";
-        localDB.transaction(function (tx) {
-            tx.executeSql(query1, [], function (tx, results) {
-                cant= results.rows.length;
-                if(cant!=0){
-                    email=results.rows.item(0).customerEmail;
-                    localStorage.email=email;
-                    localStorage.existUser="1";
-                    window.location ="./views/promotions.html";
-                }
+            var query1="SELECT * FROM "+ TABLE_CUSTOMER +" WHERE save='1'";
+            var cant=0;
+            var email="";
+            localDB.transaction(function (tx) {
+                tx.executeSql(query1, [], function (tx, results) {
+                    cant= results.rows.length;
+                    if(cant!=0){
+                        email=results.rows.item(0).customerEmail;
+                        localStorage.DescuentosPeruEmail=email;
+                        localStorage.existUser="1";
+                        window.location.href ="views/promotions.html";
+                    }
+                });
             });
-        });
         } catch (e) {
             console.log("Error validationEmail " + e + ".");
         }

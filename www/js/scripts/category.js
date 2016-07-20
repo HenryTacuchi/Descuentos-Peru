@@ -1,3 +1,16 @@
+$(document).ready(function () {
+    document.addEventListener("deviceready", onDeviceReady, false);  
+
+
+    function onDeviceReady() {
+        document.addEventListener("backbutton", onBackKeyDown, false);  
+    }
+
+    function onBackKeyDown() { 
+         navigator.app.exitApp();
+    }
+});
+
 $(window).load(function () {
   onInit();
   writeEmail();
@@ -9,37 +22,27 @@ $(window).load(function () {
 
 function closeSession(){  
   try {
-    var queryDelete = "DELETE FROM  " + TABLE_CUSTOMER;
+    var queryDelete1 = "DELETE FROM  " + TABLE_CUSTOMER;
     localDB.transaction(function (tx) {
-      tx.executeSql(queryDelete, [], function (tx, results) {
-        localStorage.lastCategoryVisited="";
-        window.location = "../index.html";
+      tx.executeSql(queryDelete1, [], function (tx, results) {
+        var queryDelete2 = "DELETE FROM  " + TABLE_PROMO;
+        localDB.transaction(function (tx) {
+          tx.executeSql(queryDelete2, [], function (tx, results) {
+            localStorage.DescuentosPeruLastCategoryVisited="";
+            window.location.href= "../index.html";
+          }, errorHandler);
+        });
       }, errorHandler);
     });
   } catch (e) {
     console.log("Error closeSession " + e + ".");
   }
-
-/*
-try {
-    var queryDelete = "UPDATE " + TABLE_CUSTOMER+" SET save='0' WHERE customerEmail='"+localStorage.email+"'";
-    localDB.transaction(function (tx) {
-      tx.executeSql(queryDelete, [], function (tx, results) {
-        localStorage.lastCategoryVisited="";
-        window.location = "../index.html";
-      }, errorHandler);
-    });
-  } catch (e) {
-    console.log("Error closeSession " + e + ".");
-  }
-*/
-
-
 }
+
 
 function writeEmail(){
   try {
-        $('.emailUser').text(localStorage.email); 
+    $('.emailUser').text(localStorage.DescuentosPeruEmail); 
   } catch (e) {
     console.log("Error writeEmail " + e + ".");
   }

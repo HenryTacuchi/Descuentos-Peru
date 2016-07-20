@@ -4,10 +4,11 @@ $(document).ready(function(){
   LoadCategries();
   loadIconsCategories();
   setSocialsPosition();
+  CategoryVisitedDefault();
   //Inicializa el objeto Swiper con sus parametros.
   var swiper;
   //usuario nuevo
-  if(localStorage.existUser==0){
+  if(localStorage.existUser=="0"){
     swiper = new Swiper('.swiper-container', {
       centeredSlides: true,
       paginationClickable: true,
@@ -19,23 +20,22 @@ $(document).ready(function(){
     setTimeout(function() { $('.modalWelcomeMessage').modal('show'); }, 2000);
   }else{
     //usuario registrado 
-    if(localStorage.lastCategoryVisited==""){
+    if(localStorage.DescuentosPeruLastCategoryVisited==""){
       swiper = new Swiper('.swiper-container', {
         centeredSlides: true,
         paginationClickable: true,
         spaceBetween: 0,
         initialSlide: 0
       }); 
-    $(".menuButton").addClass("menu-on");
+      $(".menuButton").addClass("menu-on");
     }else{
-
       swiper = new Swiper('.swiper-container', {
         centeredSlides: true,
         paginationClickable: true,
         spaceBetween: 0,
         initialSlide: 1
       });
-      LoadParticularCategory(localStorage.lastCategoryVisited,swiper);
+      LoadParticularCategory(localStorage.DescuentosPeruLastCategoryVisited,swiper);
       $(".menuButton").removeClass("menu-on");    
     }
   }
@@ -53,12 +53,13 @@ configSlides(swiper);
     fade();
   }); //Fade in elements during scroll
 
+//click en cada categoria
   $(document.body).on('click', '.categories li' ,function(){ 
     var qty= $(this).children('div .categoryQty').text();
     var name=$(this).children('div .categoryName').text();
     if(qty>0){
       //guarda categorias y cantidades
-      localStorage.lastCategoryVisited= $(this).children('div .categoryName').text();
+      localStorage.DescuentosPeruLastCategoryVisited= $(this).children('div .categoryName').text();
       localStorage.cantPromo=$(this).children('div .categoryQty').text();
       $('.categoryNameButton').addClass('hide');
       $('.categoryNameButton').removeClass('bounceIn');
@@ -74,7 +75,7 @@ configSlides(swiper);
 
       //we fill the category information except for the favorites category because we will consider that category
       //in the swipe section. 
-      if(!(name=="Favorites" || name=="Favoritos"))   GetCategoryInfo($(this).find('#CategoryId').val());      
+      if(!(name=="Favorites" || name=="Favoritos")) GetCategoryInfo($(this).find('#CategoryId').val());      
     }
     else return false;
   });
@@ -83,22 +84,21 @@ configSlides(swiper);
 
 
 
-
+//click en cada promotions take in Promoid unicos
 $(document.body).on('click', '.promotions li' ,function(){
   $('.categoryNameButton').addClass("hide");
   $('.categoryNameButton').removeClass('bounceIn');
   swiper.unlockSwipeToNext();
   swiper.slideNext();
-  localStorage.promoId= $(this).find('#PromoId').val();
-  var query1="SELECT count(*) as cant FROM PROMO WHERE promoId='"+localStorage.promoId+"' AND emailId='"+localStorage.email+"'";
+  var promoid= $(this).find('#PromoId').val();
+  var query1="SELECT * FROM PROMO WHERE promoId='"+promoid+"' AND emailId='"+localStorage.DescuentosPeruEmail+"'";
   localDB.transaction(function (tx){
     tx.executeSql(query1, [], function (tx, results){
-      var chkfavorite =results.rows.item(0).cant;
-      if(chkfavorite==1){
+      var chkfavorite =results.rows.length;
+      if(chkfavorite>0){
         $('.heartIcon').addClass('redheart');
       }else{
         $('.heartIcon').removeClass('redheart animated flip');
-
       }
     });
   });
@@ -111,7 +111,7 @@ $(document.body).on('click', '.promotions li' ,function(){
 // click favorites   
 $(document.body).on('click', '.chkfavorite' ,function(){ 
   var idpromo=localStorage.promoId;
-  var email=localStorage.email;
+  var email=localStorage.DescuentosPeruEmail;
 
   if(!($('.heartIcon').hasClass('redheart'))){
     var query1="INSERT INTO PROMO(promoId,emailId) VALUES('"+idpromo+"','"+email+"')";
@@ -121,8 +121,7 @@ $(document.body).on('click', '.chkfavorite' ,function(){
         $('.heartIcon').sparkleh();
       });
     });      
-  }
-  else{
+  }else{
     var query2="DELETE FROM PROMO WHERE promoId='"+idpromo+"' AND  emailId='"+email+"'";
     localDB.transaction(function (tx){
       tx.executeSql(query2, [], function (tx, results){
@@ -167,13 +166,17 @@ $(".menuButton").on("click",function(){
 
 
 
-//Load store per promotion
+//Load store for promotion
 $(document.body).on('click', '.btnStores' ,function(){ 
   $('.StoreLocationList li').remove();
+  var array={PromoIds:localStorage.promoId}
+
   $.ajax({
-    type: "GET",
-    url: "http://192.168.1.157/ServicePromotions/Service.svc/GetCompanies/"+localStorage.promoId,
-    async: false,
+    type: "POST",
+    url: "http://192.168.1.157/DescuentosPeru/WCFDescuentosPeru.svc/GetStore/Post",
+    data: JSON.stringify(array),
+    contentType: 'application/json; charset=utf-8',
+    async: true,
     dataType: "json",
     crossdomain: true,
     beforeSend: function () {
@@ -182,10 +185,9 @@ $(document.body).on('click', '.btnStores' ,function(){
     complete: function () {
       hideLoading();
     },
-    success:function(result){            
-      var data= result.GetCompaniesResult;
-      if (data!=null){                          
-        $.each(data, function( index, value ){
+    success:function(result){  
+      if (result.Quantity!=null){                          
+        $.each(result.Data, function( index, value ){
          var template= _.template($('#locationsTemplate').html());
          var html= template ({
           storeName: value.CompanyName,
@@ -200,7 +202,7 @@ $(document.body).on('click', '.btnStores' ,function(){
 
     },                
     error: function(error) {
-      alert('Error');
+      console.log('Error');
     }                 
   });  
 
@@ -229,7 +231,7 @@ function LoadParticularCategory(name,swiper){
     var qty= $(category).children('div .categoryQty').text();
 
     if(qty>0){
-      localStorage.lastCategoryVisited= $(category).children('div .categoryName').text();
+      localStorage.DescuentosPeruLastCategoryVisited= $(category).children('div .categoryName').text();
       $('.categoryNameButton').addClass('hide');
       $('.categoryNameButton').removeClass('bounceIn');
       $('.categories li').removeClass("active");
@@ -247,14 +249,14 @@ function LoadParticularCategory(name,swiper){
  function configSlides(swiper){
   //Configuracion de los Slides al inicio
   if(swiper.activeIndex == 1){
-    if(localStorage.lastCategoryVisited=="Favorites" || localStorage.lastCategoryVisited=="Favoritos"){
-     var query1="SELECT count(*) AS cant FROM PROMO WHERE emailID='"+localStorage.email+"'";
+    if(localStorage.DescuentosPeruLastCategoryVisited=="Favorites" || localStorage.DescuentosPeruLastCategoryVisited=="Favoritos"){
+     var query1="SELECT count(*) AS cant FROM PROMO WHERE emailID='"+localStorage.DescuentosPeruEmail+"'";
      var cant=0;
      localDB.transaction(function (tx) {
       tx.executeSql(query1, [], function (tx, results) {
         cant=results.rows.item(0).cant;
         localStorage.cantPromo=cant;
-        $('.categoryNameButton').text(localStorage.lastCategoryVisited+"("+
+        $('.categoryNameButton').text(localStorage.DescuentosPeruLastCategoryVisited+"("+
           localStorage.cantPromo
           +")");
         if(cant==0){
@@ -273,7 +275,7 @@ function LoadParticularCategory(name,swiper){
     swiper.lockSwipeToNext();
     //Habilitamos para que se dirija a Categoria
     swiper.unlockSwipeToPrev();
-    $('.categoryNameButton').text(localStorage.lastCategoryVisited+"("+
+    $('.categoryNameButton').text(localStorage.DescuentosPeruLastCategoryVisited+"("+
       localStorage.cantPromo
       +")");
     //$('.categoryNameButton').text("Descuentos");
@@ -313,115 +315,135 @@ function LoadParticularCategory(name,swiper){
 //Update Promos by CategoryId
 function GetCategoryInfo(CategoryId){
   try {
-    $('.promotions').empty();  
-    if(CategoryId=='6'){
+    var array="";
+    $('.promotions').empty();
 
-      var query1="SELECT promoId FROM PROMO WHERE emailID='"+localStorage.email+"'";
+    if(CategoryId=='6'){
+      var query1="SELECT promoId FROM PROMO WHERE emailID='"+localStorage.DescuentosPeruEmail+"'";
       var promoIds="";
       localDB.transaction(function (tx) {
         tx.executeSql(query1, [], function (tx, results) {
-
           for( i=0;i<results.rows.length;i++){
-            promoIds=promoIds+results.rows.item(i).promoId+",";
+            if(i==results.rows.length-1){
+              promoIds=promoIds+results.rows.item(i).promoId;
+            }else{
+              promoIds=promoIds+results.rows.item(i).promoId+",";
+            }
           }
 
-          $.ajax({
-            type: 'GET',
-            url: "http://192.168.1.157/ServicePromotions/Service.svc/GetFavorites/"+promoIds,
-            async: false,
-            dataType: "json",
-            crossdomain: true,
-            beforeSend: function () {
-              showLoading();
-            },
-            complete: function () {
-              hideLoading();
-            },
-            success:function(result){
+          array={PromoIds:promoIds};
 
-              var data=result.GetFavoritesResult;
+          var query2="DELETE FROM "+TABLE_PROMO+ " WHERE "+KEY_EMAIL+"='"+localStorage.DescuentosPeruEmail+"'";
+          localDB.transaction(function (tx) {
+            tx.executeSql(query2, [], function (tx, results) {
+              $.ajax({
+              type: 'POST',
+              url: "http://192.168.1.157/DescuentosPeru/WCFDescuentosPeru.svc/Favorites/Post",
+              data: JSON.stringify(array),
+              contentType: 'application/json; charset=utf-8',
+              async: true,
+              dataType: "json",
+              crossdomain: true,
+              beforeSend: function () {
+                showLoading();
+              },
+              complete: function () {
+                hideLoading();
+              },
+              success:function(result){
 
-              if (data!=null){
+                if (result.Quantity!=null){
 
-                var count = 1;   
+                  var count = 1;   
 
-                $.each(data.Promotions, function( index, value ){
-                  $('.promotions').append("<li class='delay-"+count+"'>"+
-                    '<div class="discountPromo"><div class="discountPercent">'+value.DicountPercent+'%</div></div>'+
-                    '<img src="'+value.ImagePath+'" title="Promotion" class="imgPromo">'+
-                    '<div class="areaDescription">'+
-                    '<div class="titlePromo">'+value.CompanyName+'</div>'+
-                    '<div class="descriptionPromo">'+value.ShortDescriptions+'</div>'+
-                    '</div>'+
-                    '<input type="hidden" id="descriptionPromo" value="'+value.Description+'"></input>'+
-                    '<input type="hidden" id="CategoryId" value="'+value.CategoryId+'"></input>'+
-                    '<input type="hidden" id="PromoId" value="'+value.PromoId+'"></input>'+
-                    '<input type="hidden" id="restrictionDetail" value="'+value.Restrinctions+'"></input>'+
-                    '<input type="hidden" id="ImagePathLogo" value="'+value.ImagePathLogo+'"></input>'+
-                    '</li>'
-                    );
+                  $.each(result.Data, function( index, value ){
+                    $('.promotions').append("<li class='delay-"+count+"'>"+
+                      '<div class="discountPromo"><div class="discountPercent">'+value.DicountPercent+'%</div></div>'+
+                      '<img src="'+value.ImagePath+'" title="Promotion" class="imgPromo">'+
+                      '<div class="areaDescription">'+
+                      '<div class="titlePromo">'+value.CompanyName+'</div>'+
+                      '<div class="descriptionPromo">'+value.ShortDescriptions+'</div>'+
+                      '</div>'+
+                      '<input type="hidden" id="descriptionPromo" value="'+value.Description+'"></input>'+
+                      '<input type="hidden" id="CategoryId" value="'+value.CategoryId+'"></input>'+
+                      '<input type="hidden" id="PromoId" value="'+value.PromoId+'"></input>'+
+                      '<input type="hidden" id="restrictionDetail" value="'+value.Restrinctions+'"></input>'+
+                      '<input type="hidden" id="ImagePathLogo" value="'+value.ImagePathLogo+'"></input>'+
+                      '</li>'
+                      );
+                    insertTablePromo(value.PromoId,localStorage.DescuentosPeruEmail);
                     count = count + 1;
                   });
-                  }
-                  heightPromotions();
-                  loadIconDiscount();  
                 }
-});
-});
-});
-}else{
+                heightPromotions();
+                loadIconDiscount();  
+                }
+              });
 
-  $.ajax({
-    type: 'GET',
-    url: "http://192.168.1.157/ServicePromotions/Service.svc/GetPromotions/"+CategoryId,
-    async: false,
-    dataType: "json",
-    crossdomain: true,
-    beforeSend: function () {
-      showLoading();
-    },
-    complete: function () {
-      hideLoading();
-    },
-    success:function(result){
 
-      var data= result.GetPromotionsResult;
 
-      if (data!=null){
+            })
+          })
 
-        var count = 1;   
+         
 
-        $.each(data.Promotions, function( index, value ){
-          $('.promotions').append("<li class='delay-"+count+"'>"+
-            '<div class="discountPromo"><div class="discountPercent">'+value.DicountPercent+'%</div></div>'+
-            '<img src="'+value.ImagePath+'" title="Promotion" class="imgPromo">'+
-            '<div class="areaDescription">'+
-            '<div class="titlePromo">'+value.CompanyName+'</div>'+
-            '<div class="descriptionPromo">'+value.ShortDescriptions+'</div>'+
-            '</div>'+
-            '<input type="hidden" id="descriptionPromo" value="'+value.Description+'"></input>'+
-            '<input type="hidden" id="CategoryId" value="'+value.CategoryId+'"></input>'+
-            '<input type="hidden" id="PromoId" value="'+value.PromoId+'"></input>'+
-            '<input type="hidden" id="restrictionDetail" value="'+value.Restrinctions+'"></input>'+
-            '<input type="hidden" id="ImagePathLogo" value="'+value.ImagePathLogo+'"></input>'+
-            '</li>'
-            );
-          count = count + 1;
-        }); 
 
-heightPromotions();
-loadIconDiscount();
-}
-fade();
-},                
-error: function(xhr, ajaxOptions, thrownError) {
-  alert('error GetCategoryInfo: '+ xhr.status+" "+xhr.ajaxOptions +" "+xhr.thrownError);  
-}
-});
-}   
-}catch (e) {
-  alert("Error validationEmail " + e + ".");
-}
+
+
+
+        });
+      });
+    }else{
+      array={PromoIds:CategoryId};
+      $.ajax({
+        type: 'POST',
+        url: "http://192.168.1.157/DescuentosPeru/WCFDescuentosPeru.svc/PromotionsByCategory/Post",
+        data: JSON.stringify(array),
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        dataType: "json",
+        crossdomain: true,
+        beforeSend: function () {
+          showLoading();
+        },
+        complete: function () {
+          hideLoading();
+        },
+        success:function(result){
+
+          if (result.Quantity!=null){
+            var count = 1;   
+            $.each(result.Data, function( index, value ){
+              $('.promotions').append("<li class='delay-"+count+"'>"+
+                '<div class="discountPromo"><div class="discountPercent">'+value.DicountPercent+'%</div></div>'+
+                '<img src="'+value.ImagePath+'" title="Promotion" class="imgPromo">'+
+                '<div class="areaDescription">'+
+                '<div class="titlePromo">'+value.CompanyName+'</div>'+
+                '<div class="descriptionPromo">'+value.ShortDescriptions+'</div>'+
+                '</div>'+
+                '<input type="hidden" id="descriptionPromo" value="'+value.Description+'"></input>'+
+                '<input type="hidden" id="CategoryId" value="'+value.CategoryId+'"></input>'+
+                '<input type="hidden" id="PromoId" value="'+value.PromoId+'"></input>'+
+                '<input type="hidden" id="restrictionDetail" value="'+value.Restrinctions+'"></input>'+
+                '<input type="hidden" id="ImagePathLogo" value="'+value.ImagePathLogo+'"></input>'+
+                '</li>'
+                );
+              count = count + 1;
+            }); 
+
+            heightPromotions();
+            loadIconDiscount();
+          }
+          fade();
+        },                
+        error: function(xhr, ajaxOptions, thrownError) {
+          console.log('error GetCategoryInfo: '+ xhr.status+" "+xhr.ajaxOptions +" "+xhr.thrownError);  
+        }
+      });
+    }   
+  }catch (e) {
+    console.log("Error validationEmail " + e + ".");
+  }
 }
 
 
@@ -439,7 +461,7 @@ function LoadSlideNext(li){
 
 function SavePromoUser(){  
   var promoId= localStorage.promoId.toString();
-  var email= localStorage.email.toString();
+  var email= localStorage.DescuentosPeruEmail.toString();
   //{"postPromo":{"Email":"fernandmorausky@gmail.com","PromoId":"0"}}
   $.ajax({
     type: "GET",
@@ -457,8 +479,8 @@ function SavePromoUser(){
 
 function SaveCategoryUser(){
   var categoryId= localStorage.categoryId.toString();
-  var email= localStorage.email.toString();
-  if(!(localStorage.lastCategoryVisited=="Favorites" || localStorage.lastCategoryVisited=="Favoritos")){
+  var email= localStorage.DescuentosPeruEmail.toString();
+  if(!(localStorage.DescuentosPeruLastCategoryVisited=="Favorites" || localStorage.DescuentosPeruLastCategoryVisited=="Favoritos")){
     $.ajax({
       type: "GET",
       url: "http://192.168.1.157/ServicePromotions/Service.svc/PostSelectedCategory/"+ email+"/"+categoryId,
@@ -479,14 +501,14 @@ function SaveCategoryUser(){
 
 
 function countFavorite(){
- var query1="SELECT count(*) AS cant FROM PROMO WHERE emailID='"+localStorage.email+"'";
- var cant="";
- localDB.transaction(function (tx) {
-  tx.executeSql(query1, [], function (tx, results) {
-    cant=results.rows.item(0).cant;
-    $('.categoryQty.favorites').text(cant);
+   var query1="SELECT count(*) AS cant FROM PROMO WHERE emailID='"+localStorage.DescuentosPeruEmail+"'";
+   var cant="";
+   localDB.transaction(function (tx) {
+    tx.executeSql(query1, [], function (tx, results) {
+      cant=results.rows.item(0).cant;
+      $('.categoryQty.favorites').text(cant);
+    });
   });
-});
 }
 
 
@@ -511,4 +533,10 @@ function LoadCategries(){
   loadIconDiscount();
   countFavorite();
   //captionCategories();
+}
+
+function CategoryVisitedDefault(){
+  if(null==localStorage.DescuentosPeruLastCategoryVisited){
+    localStorage.DescuentosPeruLastCategoryVisited="";
+  }
 }
